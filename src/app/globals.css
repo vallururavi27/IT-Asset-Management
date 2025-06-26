@@ -51,8 +51,9 @@ select, input, textarea {
 }
 
 select:focus, input:focus, textarea:focus {
-  @apply ring-2 ring-blue-500 ring-opacity-50 border-blue-500;
+  @apply ring-2 ring-blue-500 border-blue-500;
   outline: none;
+  --tw-ring-opacity: 0.5;
 }
 
 select option {

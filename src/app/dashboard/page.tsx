@@ -129,32 +129,50 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">VARSITY EDIFICATION MANAGEMENT</h1>
-          <h2 className="text-xl font-semibold text-gray-700">IT Asset Management Dashboard</h2>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                IT Asset Management
+              </h1>
+              <h2 className="text-xl font-medium text-gray-600 mt-2">Professional Dashboard Overview</h2>
+            </div>
+            <div className="flex space-x-3">
+              <Link
+                href="/assets/add"
+                className="btn-primary inline-flex items-center"
+              >
+                <PlusIcon className="h-4 w-4 mr-2" />
+                Add Asset
+              </Link>
+              <Link
+                href="/assets/import"
+                className="btn-secondary inline-flex items-center"
+              >
+                <CloudArrowUpIcon className="h-4 w-4 mr-2" />
+                Import Assets
+              </Link>
+            </div>
+          </div>
         </div>
           
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {statCards.map((card, index) => (
-              <div key={index} className="bg-white overflow-hidden shadow rounded-lg">
-                <div className="p-5">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <div className={`${card.color} p-3 rounded-md`}>
-                        <card.icon className="h-6 w-6 text-white" />
-                      </div>
+              <div key={index} className="card group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="card-body">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-600 mb-1">
+                        {card.title}
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {card.value}
+                      </p>
                     </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">
-                          {card.title}
-                        </dt>
-                        <dd className="text-lg font-medium text-gray-900">
-                          {card.value}
-                        </dd>
-                      </dl>
+                    <div className={`${card.color} p-4 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <card.icon className="h-8 w-8 text-white" />
                     </div>
                   </div>
                 </div>

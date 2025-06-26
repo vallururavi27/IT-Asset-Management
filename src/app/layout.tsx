@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "IT Asset Management System",
   description: "Comprehensive IT Asset Management System for educational institutions and organizations - Streamline Your IT Operations",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.svg',
   },
 };
 
