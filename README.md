@@ -1,6 +1,6 @@
-# VARSITY EDIFICATION MANAGEMENT - IT Asset Management System
+# IT Asset Management System
 
-A comprehensive web application for managing IT assets, tracking inward/outward movements, and handling departmental/individual assignments for VARSITY EDIFICATION MANAGEMENT PRIVATE LIMITED. Built with Next.js, TypeScript, Prisma, and SQLite.
+A comprehensive web application for managing IT assets, tracking inward/outward movements, and handling departmental/individual assignments for educational institutions and organizations. Built with Next.js, TypeScript, Prisma, and SQLite.
 
 ## 🚀 Features
 
@@ -14,19 +14,19 @@ A comprehensive web application for managing IT assets, tracking inward/outward 
 - **Bulk Import/Export**: CSV-based asset import and export capabilities
 
 ### User Management
-- **Office 365 Integration**: Authenticate users against your O365 mail server
+- **Secure Authentication**: JWT-based authentication system
 - **Role-based Access Control**: Admin, Manager, and User roles with different permissions
 - **Department Management**: Organize users by departments
-- **Automatic User Creation**: New users are automatically created on first O365 login
+- **User Registration**: Easy user registration and management system
 
 ### Software License Management
 - **License Tracking**: Monitor software licenses and usage
 - **Compliance Monitoring**: Track license expiry and availability
 - **Cost Management**: Monitor per-license costs and total expenditure
 
-### Professional Branding
-- **Varsity Edification Logo**: Professional blue logo integration throughout the application
-- **Consistent Branding**: Company tagline "Empowering Education. Enabling Dreams"
+### Professional Interface
+- **Modern Design**: Clean and professional interface design
+- **Customizable Branding**: Easy to customize with your organization's branding
 - **Responsive Design**: Mobile-friendly interface with professional appearance
 - **Print-ready Documents**: Professional formatting for gate passes and reports
 
@@ -84,13 +84,13 @@ A comprehensive web application for managing IT assets, tracking inward/outward 
    - Open http://localhost:3000
    - Login with provided credentials
 
-## 🔐 Login Credentials for VARSITY EDIFICATION MANAGEMENT
+## 🔐 Default Login Credentials
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | ravi.v@varsitymgmt.com | varsity@2024 |
-| IT Manager | it.manager@varsitymgmt.com | itmanager@2024 |
-| Academic Staff | academic.staff@varsitymgmt.com | academic@2024 |
+| Admin | admin@example.com | admin123 |
+| IT Manager | manager@example.com | manager123 |
+| User | user@example.com | user123 |
 
 ## 📊 Database Schema
 

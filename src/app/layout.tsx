@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IT Asset Management - Varsity Edification Management Pvt. Ltd.",
-  description: "Comprehensive IT Asset Management System for Varsity Edification Management Private Limited - Empowering Education, Enabling Dreams",
+  title: "IT Asset Management System",
+  description: "Comprehensive IT Asset Management System for educational institutions and organizations - Streamline Your IT Operations",
   icons: {
     icon: '/favicon.ico',
   },

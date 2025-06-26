@@ -67,11 +67,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-white">
           <div className="flex h-20 items-center justify-between px-4 border-b border-gray-200">
             <div className="flex items-center space-x-2">
-              <img
-                src="/varsity-logo-compact.svg"
-                alt="Varsity Edification"
-                className="h-8 w-auto"
-              />
+              <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">IT</span>
+              </div>
               <h1 className="text-xs font-bold text-blue-600">IT ASSET MGMT</h1>
             </div>
             <button onClick={() => setSidebarOpen(false)}>
@@ -99,11 +97,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
           <div className="flex items-center h-20 px-4 bg-white border-b border-gray-200">
             <div className="flex flex-col items-center w-full">
-              <img
-                src="/varsity-logo-compact.svg"
-                alt="Varsity Edification Management"
-                className="h-12 w-auto mb-1"
-              />
+              <div className="h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center mb-1">
+                <span className="text-white font-bold text-lg">IT</span>
+              </div>
               <h1 className="text-xs font-bold text-blue-600 text-center">IT ASSET MANAGEMENT</h1>
             </div>
           </div>
@@ -146,11 +142,9 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex flex-1 justify-between px-4">
             <div className="flex flex-1 items-center space-x-4">
               <div className="flex items-center space-x-3 lg:hidden">
-                <img
-                  src="/varsity-logo.svg"
-                  alt="Varsity Edification"
-                  className="h-8 w-auto"
-                />
+                <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">IT</span>
+                </div>
               </div>
               <h2 className="text-xl font-semibold text-gray-900">IT Asset Management System</h2>
             </div>

@@ -9,28 +9,27 @@ export interface SimpleUser {
   department?: string
 }
 
-// AUTHORIZED USERS ONLY - VARSITY EDIFICATION MANAGEMENT PRIVATE LIMITED
-// Only these specific email addresses can access the system
+// AUTHORIZED USERS - DEFAULT SYSTEM ACCOUNTS
+// Default system users for initial setup
 const AUTHORIZED_USERS = [
   {
-    email: 'ravi.v@varsitymgmt.com',
-    password: 'varsity@2024',
-    fullName: 'Ravi Kumar Valluru',
+    email: 'admin@example.com',
+    password: 'admin123',
+    fullName: 'System Administrator',
     role: 'ADMIN' as Role
   },
-  // Add more authorized users here as needed:
-  // {
-  //   email: 'manager@varsitymgmt.com',
-  //   password: 'manager@2024',
-  //   fullName: 'Manager Name',
-  //   role: 'MANAGER' as Role
-  // },
-  // {
-  //   email: 'staff@varsitymgmt.com',
-  //   password: 'staff@2024',
-  //   fullName: 'Staff Name',
-  //   role: 'USER' as Role
-  // }
+  {
+    email: 'manager@example.com',
+    password: 'manager123',
+    fullName: 'IT Manager',
+    role: 'MANAGER' as Role
+  },
+  {
+    email: 'user@example.com',
+    password: 'user123',
+    fullName: 'Regular User',
+    role: 'USER' as Role
+  }
 ]
 
 // Simple authentication (fallback method)

@@ -57,16 +57,6 @@ verify-*.js
 
 # Documentation files (temporary)
 *.md.backup
-BRANCHES_DATA_IMPORT_GUIDE.md
-BRANCH_INVENTORY_CSV_FORMAT.md
-BRANCH_MANAGEMENT_SYSTEM.md
-BULK_INDENT_SYSTEM.md
-CLEAN_SYSTEM_READY.md
-FINAL_TEST_REPORT.md
-PAGE_FIXES_SUMMARY.md
-READY_FOR_BRANCHES_DATA.md
-SQLITE_ANALYSIS.md
-SYSTEM_STATUS.md
 
 # Temporary scripts
 add-store-managers.ts

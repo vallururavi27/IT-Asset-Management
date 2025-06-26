@@ -44,20 +44,18 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-6">
-            <img
-              src="/varsity-logo.svg"
-              alt="Varsity Edification Management"
-              className="h-20 w-auto"
-            />
+            <div className="h-20 w-20 bg-blue-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-2xl">IT</span>
+            </div>
           </div>
           <h2 className="text-2xl font-extrabold text-gray-900">
             IT Asset Management System
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Varsity Edification Management Pvt. Ltd.
+            Comprehensive Asset Tracking & Management
           </p>
-          <p className="text-xs text-red-600 font-medium">
-            Empowering Education. Enabling Dreams
+          <p className="text-xs text-blue-600 font-medium">
+            Streamline Your IT Operations
           </p>
           <p className="mt-1 text-center text-xs text-gray-500">
             Sign in to your account

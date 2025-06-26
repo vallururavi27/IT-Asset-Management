@@ -12,7 +12,7 @@ Thank you for your interest in contributing to the IT Asset Management System! T
 ```bash
 git clone https://github.com/your-username/it-asset-management.git
 cd it-asset-management
-git remote add upstream https://github.com/vallururavi27/it-asset-management.git
+git remote add upstream https://github.com/your-organization/it-asset-management.git
 ```
 
 ### 2. Create a Feature Branch

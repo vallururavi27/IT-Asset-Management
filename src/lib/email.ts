@@ -216,6 +216,6 @@ export function getAdminEmails(): string[] {
 
 // Get store manager emails
 export function getStoreManagerEmails(): string[] {
-  const emails = process.env.STORE_MANAGER_EMAILS || 'store.manager1@varsitymgmt.com,store.manager2@varsitymgmt.com,store.manager3@varsitymgmt.com'
+  const emails = process.env.STORE_MANAGER_EMAILS || 'manager@example.com'
   return emails.split(',').map(email => email.trim()).filter(email => email.length > 0)
 }
