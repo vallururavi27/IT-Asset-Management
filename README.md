@@ -10,7 +10,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?style=for-the-badge&logo=sqlite)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**A comprehensive, modern web application for managing IT assets, tracking movements, and handling departmental assignments for educational institutions and organizations.**
+**A comprehensive, modern web application for managing IT assets, tracking movements, and handling departmental assignments for institutions and organizations.**
 
 *Built with cutting-edge technologies and designed for scalability, security, and ease of use.*
 
