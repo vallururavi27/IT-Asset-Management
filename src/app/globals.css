@@ -24,3 +24,94 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Fix dropdown text visibility */
+select {
+  color: #374151 !important; /* Dark gray text */
+  background-color: #ffffff !important; /* White background */
+}
+
+select option {
+  color: #374151 !important; /* Dark gray text */
+  background-color: #ffffff !important; /* White background */
+}
+
+/* Force dropdown options to be visible in all browsers */
+select option:checked {
+  background-color: #3B82F6 !important; /* Blue background for selected */
+  color: #ffffff !important; /* White text for selected */
+}
+
+select option:hover {
+  background-color: #F3F4F6 !important; /* Light gray on hover */
+  color: #374151 !important; /* Dark gray text on hover */
+}
+
+/* Ensure form inputs have proper text color */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea {
+  color: #374151 !important; /* Dark gray text */
+  background-color: #ffffff !important; /* White background */
+}
+
+/* Fix placeholder text */
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF !important; /* Light gray placeholder */
+}
+
+/* Ensure buttons have proper contrast */
+button {
+  color: inherit;
+}
+
+/* Fix any modal or overlay text issues */
+.fixed {
+  color: inherit;
+}
+
+/* Override dark mode for form elements */
+@media (prefers-color-scheme: dark) {
+  select,
+  select option,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea {
+    color: #374151 !important; /* Force dark text */
+    background-color: #ffffff !important; /* Force white background */
+  }
+
+  select option:checked {
+    background-color: #3B82F6 !important; /* Blue background for selected */
+    color: #ffffff !important; /* White text for selected */
+  }
+}
+
+/* Ensure consistent styling across all browsers */
+select,
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Custom dropdown arrow for better visibility */
+select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px !important;
+}

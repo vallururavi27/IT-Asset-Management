@@ -1,0 +1,429 @@
+// IT Asset Management Database Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  password    String
+  fullName    String?
+  role        Role     @default(USER)
+  departmentId String?
+  branchId    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  department      Department?      @relation(fields: [departmentId], references: [id])
+  branch          Branch?          @relation(fields: [branchId], references: [id])
+  managedDepartments Department[] @relation("DepartmentManager")
+  assetAssignments AssetAssignment[]
+  createdMovements AssetMovement[] @relation("MovementCreator")
+  createdGatePasses GatePass[]
+  createdIndents  IndentRequest[]
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+// Department Management
+model Department {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  managerId   String?
+  branchId    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  manager     User?   @relation("DepartmentManager", fields: [managerId], references: [id])
+  branch      Branch? @relation(fields: [branchId], references: [id])
+  users       User[]
+  assetAssignments AssetAssignment[]
+
+  @@map("departments")
+}
+
+// Asset Management
+model Asset {
+  id              String      @id @default(cuid())
+  name            String
+  description     String?
+  category        AssetCategory
+  subCategory     String?     // Computing Devices, Storage, Memory, etc.
+  type            String
+  serialNumber    String?     @unique
+  model           String?
+  manufacturer    String?
+
+  // Branch Assignment
+  branchId        String?
+  branch          Branch?     @relation(fields: [branchId], references: [id])
+
+  purchaseDate    DateTime?
+  purchaseCost    Float?
+  warrantyExpiry  DateTime?
+  status          AssetStatus @default(AVAILABLE)
+  location        String?
+  quantity        Int         @default(1)
+  availableQty    Int         @default(1)
+
+  // Purchase & Tracking Information
+  purchaseOrderNo String?     // Purchase Order Number
+  grnNumber       String?     // Goods Received Note Number
+  invoiceNumber   String?     // Supplier Invoice Number
+  vendor          String?     // Vendor/Supplier Name
+
+  // Technical Specifications
+  specifications  Json?       // Flexible JSON field for detailed specs
+  assetTag        String?     @unique
+  condition       AssetCondition @default(NEW)
+
+  // Additional tracking fields
+  osVersion       String?     // Operating System
+  biosVersion     String?     // BIOS/UEFI Version
+  capacity        String?     // Storage capacity, RAM size, etc.
+  speed           String?     // RAM speed, CPU speed, etc.
+  formFactor      String?     // DIMM, SODIMM, etc.
+  powerRating     String?     // PSU wattage, power consumption
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relations
+  assignments     AssetAssignment[]
+  movements       AssetMovement[]
+  gatePasses      GatePass[]
+
+  @@map("assets")
+}
+
+enum AssetCategory {
+  HARDWARE
+  SOFTWARE
+  NETWORKING
+  DATACENTER
+  LEGACY
+}
+
+enum AssetStatus {
+  AVAILABLE
+  ASSIGNED
+  MAINTENANCE
+  RETIRED
+  DISPOSED
+}
+
+enum AssetCondition {
+  NEW
+  REFURBISHED
+  USED
+  DAMAGED
+  OBSOLETE
+}
+
+// Asset Assignment Tracking
+model AssetAssignment {
+  id           String            @id @default(cuid())
+  assetId      String
+  userId       String
+  departmentId String?
+  quantity     Int               @default(1)
+  assignedDate DateTime          @default(now())
+  returnedDate DateTime?
+  notes        String?
+  status       AssignmentStatus  @default(ACTIVE)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  // Relations
+  asset       Asset       @relation(fields: [assetId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  department  Department? @relation(fields: [departmentId], references: [id])
+
+  @@map("asset_assignments")
+}
+
+enum AssignmentStatus {
+  ACTIVE
+  RETURNED
+}
+
+// Asset Movement Tracking (Inward/Outward)
+model AssetMovement {
+  id            String       @id @default(cuid())
+  assetId       String
+  movementType  MovementType
+  quantity      Int
+  fromLocation  String?
+  toLocation    String?
+  supplier      String?
+  recipient     String?
+  movementDate  DateTime     @default(now())
+  notes         String?
+  createdBy     String
+  createdAt     DateTime     @default(now())
+
+  // Relations
+  asset         Asset        @relation(fields: [assetId], references: [id])
+  creator       User         @relation("MovementCreator", fields: [createdBy], references: [id])
+
+  @@map("asset_movements")
+}
+
+enum MovementType {
+  INWARD
+  OUTWARD
+}
+
+// Software License Management
+model SoftwareLicense {
+  id                String        @id @default(cuid())
+  softwareName      String
+  version           String?
+  licenseKey        String?
+  licenseType       LicenseType
+  totalLicenses     Int
+  usedLicenses      Int           @default(0)
+  availableLicenses Int
+  expiryDate        DateTime?
+  vendor            String?
+  purchaseDate      DateTime?
+  costPerLicense    Float?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@map("software_licenses")
+}
+
+enum LicenseType {
+  PERPETUAL
+  SUBSCRIPTION
+  VOLUME
+}
+
+// Gate Pass Management for Asset Delivery Tracking
+model GatePass {
+  id                String        @id @default(cuid())
+  gatePassNumber    String        @unique
+  assetId           String
+
+  // Store Manager Details
+  storeManagerName  String
+  storeManagerEmail String
+  storeManagerPhone String?
+
+  // Delivery Details
+  deliveryPersonName    String
+  deliveryPersonContact String
+  deliveryDate          DateTime    @default(now())
+
+  // Hardware Engineer Details
+  hardwareEngineerName    String?
+  hardwareEngineerContact String?
+
+  // Approval Details
+  approvedBy            String?
+
+  // Destination Details
+  branchId          String?
+  branch            Branch?     @relation(fields: [branchId], references: [id])
+  campus            String
+  department        String
+  endUserName       String
+  endUserEmail      String?
+  endUserPhone      String?
+
+  // Tracking Status
+  status            GatePassStatus @default(ISSUED)
+  deliveredDate     DateTime?
+  receivedBy        String?       // Who received the item
+  grnNumber         String?       // Goods Received Note number
+  grnDate           DateTime?     // When GRN was created
+
+  // Additional Information
+  purpose           String?       // Purpose of delivery
+  remarks           String?
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  createdBy         String
+
+  // Relations
+  asset             Asset         @relation(fields: [assetId], references: [id])
+  creator           User          @relation(fields: [createdBy], references: [id])
+
+  @@map("gate_passes")
+}
+
+enum GatePassStatus {
+  ISSUED      // Gate pass created, item ready for delivery
+  IN_TRANSIT  // Item picked up by delivery person
+  DELIVERED   // Item delivered to end user
+  RECEIVED    // GRN created, item officially received
+  CANCELLED   // Gate pass cancelled
+}
+
+// Branch Management
+model Branch {
+  id                    String   @id @default(cuid())
+  branchName            String   @unique
+  branchCode            String   @unique
+  city                  String
+  location              String   // Full address
+  state                 String?
+  pincode               String?
+  branchType            BranchType @default(BRANCH)
+
+  // Hardware Engineer Details
+  hardwareEngineerName  String?
+  hardwareEngineerEmail String?
+  hardwareEngineerPhone String?
+
+  // Branch Manager Details
+  branchManagerName     String?
+  branchManagerEmail    String?
+  branchManagerPhone    String?
+
+  // Status and Metadata
+  isActive              Boolean  @default(true)
+  establishedDate       DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Relations
+  assets                Asset[]
+  gatePasses            GatePass[]
+  departments           Department[]
+  users                 User[]
+  branchInventory       BranchInventory[]
+
+  @@map("branches")
+}
+
+enum BranchType {
+  HEAD_OFFICE
+  BRANCH
+  REGIONAL_OFFICE
+  SUB_BRANCH
+}
+
+// Branch Inventory Management
+model BranchInventory {
+  id              String   @id @default(cuid())
+  branchId        String
+  itemName        String
+  itemType        String
+  category        String
+  subCategory     String?
+  serialNumber    String?
+  model           String?
+  manufacturer    String?
+  purchaseDate    DateTime?
+  purchaseCost    Float?
+  warrantyExpiry  DateTime?
+  status          String   @default("AVAILABLE")
+  location        String?  // Location within the branch
+  quantity        Int      @default(1)
+  availableQty    Int      @default(1)
+  assignedQty     Int      @default(0)
+  condition       String   @default("GOOD")
+  notes           String?
+  lastUpdated     DateTime @default(now()) @updatedAt
+  createdAt       DateTime @default(now())
+
+  // Relations
+  branch          Branch   @relation(fields: [branchId], references: [id])
+
+  @@map("branch_inventory")
+}
+
+// Campus Management (Legacy - keeping for compatibility)
+model Campus {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  address     String?
+  city        String?
+  state       String?
+  pincode     String?
+  contactPerson String?
+  contactPhone  String?
+  contactEmail  String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("campuses")
+}
+
+// Indent Request Management
+model IndentRequest {
+  id              String        @id @default(cuid())
+  indentNumber    String        @unique
+  itemName        String
+  itemType        String
+  category        String
+  quantity        Int
+  urgency         IndentUrgency @default(NORMAL)
+  justification   String
+
+  // Requester Information
+  requestedBy     String
+  department      String
+  campus          String?
+  contactEmail    String
+  contactPhone    String?
+
+  // Approval Workflow
+  status          IndentStatus  @default(PENDING)
+  approvedBy      String?
+  approvedDate    DateTime?
+  rejectedReason  String?
+
+  // Fulfillment
+  estimatedCost   Float?
+  supplierName    String?
+  expectedDelivery DateTime?
+  purchaseOrderNo String?
+
+  // Tracking
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  createdBy       String
+
+  // Relations
+  creator         User          @relation(fields: [createdBy], references: [id])
+
+  @@map("indent_requests")
+}
+
+enum IndentStatus {
+  PENDING     // Waiting for approval
+  APPROVED    // Approved by admin
+  REJECTED    // Rejected by admin
+  ORDERED     // Purchase order created
+  RECEIVED    // Items received
+  CANCELLED   // Request cancelled
+}
+
+enum IndentUrgency {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
